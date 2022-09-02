@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 
 import com.github.tvbox.osc.R;
 
+import com.github.tvbox.osc.BuildConfig;
+
 import org.jetbrains.annotations.NotNull;
 
 public class AboutDialog extends BaseDialog {

@@ -38,6 +38,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import com.github.catvod.crawler.Spider;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.api.ApiConfig;
+import com.github.tvbox.osc.base.App;
 import com.github.tvbox.osc.base.BaseActivity;
 import com.github.tvbox.osc.bean.ParseBean;
 import com.github.tvbox.osc.bean.SourceBean;
@@ -625,7 +626,8 @@ public class PlayActivity extends BaseActivity {
         Intent intent = getIntent();
         if (intent != null && intent.getExtras() != null) {
             Bundle bundle = intent.getExtras();
-            mVodInfo = (VodInfo) bundle.getSerializable("VodInfo");
+//            mVodInfo = (VodInfo) bundle.getSerializable("VodInfo");
+            mVodInfo = App.getInstance().getVodInfo();
             sourceKey = bundle.getString("sourceKey");
             sourceBean = ApiConfig.get().getSource(sourceKey);
             initPlayerCfg();
@@ -1376,7 +1378,6 @@ public class PlayActivity extends BaseActivity {
                     } else {
                         playUrl(url, null);
                     }
-                    mController.setUrlTitle("视频地址："+url);
                     stopLoadWebView(false);
                 }
             }
@@ -1390,9 +1391,9 @@ public class PlayActivity extends BaseActivity {
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
             WebResourceResponse response = checkIsVideo(url, null);
-            if (response == null)
-                return super.shouldInterceptRequest(view, url);
-            else
+//            if (response == null)
+//                return super.shouldInterceptRequest(view, url);
+//            else
                 return response;
         }
 
@@ -1420,9 +1421,9 @@ public class PlayActivity extends BaseActivity {
 
             }
             WebResourceResponse response = checkIsVideo(url, webHeaders);
-            if (response == null)
-                return super.shouldInterceptRequest(view, request);
-            else
+//            if (response == null)
+//                return super.shouldInterceptRequest(view, request);
+//            else
                 return response;
         }
 
@@ -1562,7 +1563,6 @@ public class PlayActivity extends BaseActivity {
                     } else {
                         playUrl(url, null);
                     }
-                    mController.setUrlTitle("视频地址："+url);
                     stopLoadWebView(false);
                 }
             }

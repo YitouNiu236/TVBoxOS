@@ -2,6 +2,7 @@ package com.github.tvbox.osc.base;
 
 import androidx.multidex.MultiDexApplication;
 
+import com.github.tvbox.osc.bean.VodInfo;
 import com.github.tvbox.osc.callback.EmptyCallback;
 import com.github.tvbox.osc.callback.LoadingCallback;
 import com.github.tvbox.osc.data.AppDataManager;
@@ -10,6 +11,7 @@ import com.github.tvbox.osc.util.EpgNameFuzzyMatch;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.OkGoHelper;
 import com.github.tvbox.osc.util.PlayerHelper;
+import com.github.tvbox.osc.util.js.JSEngine;
 import com.kingja.loadsir.core.LoadSir;
 import com.orhanobut.hawk.Hawk;
 
@@ -46,6 +48,7 @@ public class App extends MultiDexApplication {
                 .setSupportSP(false)
                 .setSupportSubunits(Subunits.MM);
         PlayerHelper.init();
+        JSEngine.getInstance().create();
     }
 
     private void initParams() {
@@ -59,5 +62,20 @@ public class App extends MultiDexApplication {
 
     public static App getInstance() {
         return instance;
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        JSEngine.getInstance().destroy();
+    }
+
+
+    private VodInfo vodInfo;
+    public void setVodInfo(VodInfo vodinfo){
+        this.vodInfo = vodinfo;
+    }
+    public VodInfo getVodInfo(){
+        return this.vodInfo;
     }
 }
